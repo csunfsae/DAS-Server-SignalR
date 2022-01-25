@@ -3,6 +3,7 @@ import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLi
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import logo from '../assets/FSAE-Logo.png';
+import { LoginMenu } from '../api-authorization/LoginMenu';
 
 export class NavMenu extends Component {
     static displayName = NavMenu.name;
@@ -32,6 +33,7 @@ export class NavMenu extends Component {
                         <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
                             <ul className="navbar-nav flex-grow">
                                 <NavItem>
+                                    <LoginMenu></LoginMenu>
                                 </NavItem>
                             </ul>
                         </Collapse>
