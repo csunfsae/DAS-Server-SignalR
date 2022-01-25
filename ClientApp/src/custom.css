@@ -12,3 +12,25 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.overlay {
+    display: flexbox;
+    margin: 5em;
+    text-align: center;
+}
+
+#carImg {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.overlay h1 {
+    color: rgb(246, 33, 33);
+    align-items: center;
+}
+
+.overlay p {
+    color: white;
+}
