@@ -1,5 +1,5 @@
 ﻿import React, { Component, Fragment } from 'react';
-import Login from '../api-authorization/Login';
+//import Login from '../api-authorization/Login';
 import { NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -41,7 +41,7 @@ export class LoginMenu extends Component {
     anonymousView(registerPath) {
         return (<Fragment>
             <NavItem>
-                <Login></Login>
+                {/*<Login></Login>*/}
                 <p id="register-button">Don't have an account? <a href={registerPath}>Register</a></p>
                 {/*<NavLink tag={Link} className="text-dark" to={registerPath}>Register</NavLink>*/}
             </NavItem>
