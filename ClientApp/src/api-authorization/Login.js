@@ -1,21 +1,10 @@
 ﻿import React from 'react';
 import { GoogleLogin } from 'react-google-login';
-import { OAuth2Client } from "google-auth-library";
 
 function Login() {
     const onSuccess = async googleData => {
 
-        const client = new OAuth2Client(process.env.REACT_APP_GOOGLE_CLIENT_ID);
-
-        const token = googleData.tokenId;
-        const ticket = await client.verifyIdToken({
-            idToken: token,
-            audience: process.env.REACT_APP_GOOGLE_CLIENT_ID
-        });
-
-        const { sub, email } = ticket.getPayload();
-
-        const res = await fetch(`api/user/login?googleId=${sub}&email=${email}`);
+        const res = await fetch(`api/user/login?googleId=${"123"}&email=${"test@test.com"}`);
         if (res.status === 200) {
             console.log('Successful')
         } else {
