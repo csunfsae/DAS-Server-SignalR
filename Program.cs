@@ -1,8 +1,22 @@
+using CSUN_DAS_Server.SignalR;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
 // Add services to the container.
+services.AddControllersWithViews();
+services.AddSignalR();
 
-builder.Services.AddControllersWithViews();
+services.AddCors(options =>
+{
+    options.AddPolicy("ClientPermission", policy =>
+    {
+        policy.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("https://localhost:44438")
+            .AllowCredentials();
+    });
+});
 
 var app = builder.Build();
 
@@ -16,7 +30,8 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
+app.UseCors("ClientPermission");
+app.MapHub<RaceHub>("/racehub");
 
 app.MapControllerRoute(
     name: "default",

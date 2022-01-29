@@ -24,7 +24,7 @@ function Login() {
     };
 
     const onFailure = (res) => {
-        alert("Google authentication failed.", res)
+        //alert("Google authentication failed.", res)
     };
 
     return (
