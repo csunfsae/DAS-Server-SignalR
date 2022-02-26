@@ -1,11 +1,34 @@
+using CSUN_DAS_Server.DatabaseSettings;
+using CSUN_DAS_Server.Entities.Users;
 using CSUN_DAS_Server.SignalR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+var configuration = builder.Configuration;
 
 // Add services to the container.
+services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/api/account/google-login"; // Must be lowercase
+})
+.AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = configuration["Authentication:Google:ClientSecret"];
+});
+
 services.AddControllersWithViews();
 services.AddSignalR();
+
+services.Configure<CsunFsaeDatabaseSettings>(
+    configuration.GetSection("CsunDasDatabase"));
+
+services.AddSingleton<UserService>();
 
 services.AddCors(options =>
 {
@@ -26,6 +49,9 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
