@@ -1,4 +1,4 @@
-﻿namespace CSUN_DAS_Server.DatabaseSettings
+﻿namespace DAS_Server_SignalR.DatabaseSettings
 {
     public class CsunFsaeDatabaseSettings
     {

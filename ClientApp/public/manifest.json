@@ -1,6 +1,6 @@
 {
-  "short_name": "CSUN_DAS_Server",
-  "name": "CSUN_DAS_Server",  
+  "short_name": "DAS_Server_SignalR",
+  "name": "DAS_Server_SignalR",  
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",

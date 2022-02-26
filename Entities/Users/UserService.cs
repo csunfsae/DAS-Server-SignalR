@@ -1,9 +1,9 @@
-﻿using CSUN_DAS_Server.DatabaseSettings;
-using CSUN_DAS_Server.Entities.Users.Enums;
+﻿using DAS_Server_SignalR.DatabaseSettings;
+using DAS_Server_SignalR.Entities.Users.Enums;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
-namespace CSUN_DAS_Server.Entities.Users
+namespace DAS_Server_SignalR.Entities.Users
 {
     public class UserService
     {

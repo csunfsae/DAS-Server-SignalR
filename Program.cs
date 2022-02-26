@@ -1,6 +1,6 @@
-using CSUN_DAS_Server.DatabaseSettings;
-using CSUN_DAS_Server.Entities.Users;
-using CSUN_DAS_Server.SignalR;
+using DAS_Server_SignalR.DatabaseSettings;
+using DAS_Server_SignalR.Entities.Users;
+using DAS_Server_SignalR.SignalR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);

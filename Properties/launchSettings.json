@@ -8,7 +8,7 @@
     }
   },
   "profiles": {
-    "CSUN_DAS_Server": {
+    "DAS_Server_SignalR": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7116;http://localhost:5116",

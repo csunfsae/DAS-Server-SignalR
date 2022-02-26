@@ -1,4 +1,4 @@
-﻿namespace CSUN_DAS_Server.Entities.Users.Enums
+﻿namespace DAS_Server_SignalR.Entities.Users.Enums
 {
     public enum Status
     {

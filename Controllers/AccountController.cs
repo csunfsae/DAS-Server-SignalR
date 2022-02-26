@@ -1,10 +1,10 @@
-﻿using CSUN_DAS_Server.Entities.Users;
-using CSUN_DAS_Server.Entities.Users.Enums;
+﻿using DAS_Server_SignalR.Entities.Users;
+using DAS_Server_SignalR.Entities.Users.Enums;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CSUN_DAS_Server.Controllers
+namespace DAS_Server_SignalR.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

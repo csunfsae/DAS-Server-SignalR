@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 
-namespace CSUN_DAS_Server.SignalR
+namespace DAS_Server_SignalR.SignalR
 {
     public class RaceHub : Hub
     {
