@@ -7,7 +7,9 @@ const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_H
 const context =  [
     "/api/account/google-login",
     "/api/account/register",
-    "/api/account/get-registered-user"
+    "/api/account/get-registered-user",
+    "/api/account/get-users"
+
 ];
 
 module.exports = function(app) {

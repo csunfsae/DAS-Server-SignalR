@@ -134,5 +134,15 @@ namespace DAS_Server_SignalR.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("get-users")]
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+
+            var users = await _userService.GetUsers();
+            return users;
+ 
+        }
     }
 }

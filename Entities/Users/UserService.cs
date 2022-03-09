@@ -28,6 +28,11 @@ namespace DAS_Server_SignalR.Entities.Users
             return await _userCollection.Find(x => x.GoogleId == googleId && x.Email == email).FirstOrDefaultAsync();
         }
 
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            return await Task.FromResult(_userCollection.AsQueryable().Where(x => x.Status != Status.Deleted).ToArray());
+        }
+
         public async Task CreateUser(User user)
         {
             await _userCollection.InsertOneAsync(user);
