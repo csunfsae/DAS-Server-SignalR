@@ -1,4 +1,7 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, Fragment } from 'react';
+import { nanoid } from "nanoid";
+import ReadOnlyRow from "./ReadOnlyRow";
+import EditableRow from "./EditableRow";
 
 export class Teams extends Component {
     static displayName = Teams.name;
@@ -7,7 +10,22 @@ export class Teams extends Component {
         super();
         // Don't call this.setState() here!
         this.state = {
-            users: []
+            users: [],
+            addFormData: {
+                firstName: "",
+                lastName: "",
+                email: "",
+                team: "",
+                role: "",
+            },
+            editFormData: {
+                firstName: "",
+                lastName: "",
+                email: "",
+                team: "",
+                role: "",
+            },
+            editContactId: null
 /*            users: [{
                 firstName: 'Luis',
                 lastName: 'Rangel',
@@ -19,6 +37,13 @@ export class Teams extends Component {
         };
         this.clickAccordion = this.clickAccordion.bind(this);
         this.fetchUsers = this.fetchUsers.bind(this);
+        this.handleAddFormChange = this.handleAddFormChange.bind(this);
+        this.handleEditFormChange = this.handleEditFormChange.bind(this);
+        this.handleAddFormSubmit = this.handleAddFormSubmit.bind(this);
+        this.handleEditFormSubmit = this.handleEditFormSubmit.bind(this);
+        this.handleEditClick = this.handleEditClick.bind(this);
+        this.handleCancelClick = this.handleCancelClick.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
     }
 
     //get the users function
@@ -38,8 +63,8 @@ export class Teams extends Component {
             })
             .then((data) => {
                 console.log("Users were fetched!");
-                this.state.users = data;
-                //console.log(this.state.users);
+                this.setState({users: data});
+                console.log(this.state.users);
             });
     }
 
@@ -61,6 +86,103 @@ export class Teams extends Component {
             });
         }
     }
+
+    handleAddFormChange = (event) => {
+        event.preventDefault();
+
+        const fieldName = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
+
+        const newFormData = { ...this.addFormData };
+        newFormData[fieldName] = fieldValue;
+
+        this.setState({ addFormData: newFormData });
+    };
+
+    handleEditFormChange = (event) => {
+        event.preventDefault();
+
+        const fieldName = event.target.getAttribute("name");
+        const fieldValue = event.target.value;
+
+        const newFormData = { ...this.state.editFormData };
+        newFormData[fieldName] = fieldValue;
+
+        this.setState({ editFormData: newFormData });
+    };
+
+    handleAddFormSubmit = (event) => {
+        event.preventDefault();
+
+        const newContact = {
+            id: nanoid(),
+            fullName: this.addFormData.fullName,
+            address: this.addFormData.address,
+            phoneNumber: this.addFormData.phoneNumber,
+            email: this.addFormData.email,
+        };
+
+        const newContacts = [...this.users, newContact];
+        this.setState({users: newContacts });
+    };
+
+    // This is handling the save button even though it's not attached to it. Instead, it's attached to the form itself within this file. 
+    handleEditFormSubmit = (event) => {
+        event.preventDefault();
+
+        const editedContact = {
+            id: this.state.editContactId,
+            firstName: this.state.editFormData.firstName,
+            lastName: this.state.editFormData.lastName,
+            email: this.state.editFormData.email,
+            team: this.state.editFormData.team,
+            role: this.state.editFormData.role
+        };
+
+        const newContacts = [...this.state.users];
+
+        const index = this.state.users.findIndex((contact) => contact._id === this.state.editContactId);
+
+        newContacts[index] = editedContact;
+
+      /*  setUsers(newContacts);
+        setEditContactId(null);*/
+        this.setState({ users: newContacts, editContactId: null });
+    };
+
+    handleEditClick = (event, contact) => {
+        event.preventDefault();
+        this.setState({ editContactId: contact._id });
+        //setEditContactId(contact._id);
+
+        const formValues = {
+            firstName: contact.firstName,
+            lastName: contact.lastName,
+            email: contact.email,
+            team: contact.team,
+            role: contact.role,
+        };
+
+        this.setState({ editFormData: formValues })
+        //setEditFormData(formValues);
+    };
+
+    handleCancelClick = () => {
+        this.setState({ editContactId: null });
+        //setEditContactId(null);
+    };
+
+    handleDeleteClick = (contactId) => {
+        const newContacts = [...this.state.users];
+
+        const index = this.state.users.findIndex((contact) => contact._id === contactId);
+
+        newContacts.splice(index, 1);
+
+        this.setState({ users: newContacts });
+        //setContacts(newContacts);
+    };
+
 
     componentDidMount() {
         console.log("Mounted successfully!")
@@ -97,39 +219,44 @@ export class Teams extends Component {
 
                 <button class="accordion">Section 1</button>
                 <div class="panel">
-                    <div className="list-users">
-                        <div className="user-subheader">
-                            <span>
-                                <strong>Name</strong>
-                            </span>
-                            <span>
-                                <strong>Email</strong>
-                            </span>
-                            <span>
-                                <strong>Role</strong>
-                            </span>
-                            <span>
-                                <strong>Team</strong>
-                            </span>
-                        </div>
-                        {this.state.users ? (
-                            this.state.users.map((user, index) => (
-                                <div className="user" id={index}>
-                                    <span>
-                                        {user.firstName} {user.lastName}
-                                    </span>
-                                    <span>{ user.email }</span>
-                                    <span>{ user.role }</span>
-                                    <span>{ user.team }</span>
-{/*                                    <button onClick={() => changeElement(index)}>Edit</button>
-                                    <button onClick={() => removeUser(user)}>Delete</button>*/}
-                                </div>
-                            ))
-                        ) : (
-                            <h2>Users here</h2>
-                        )}
-                        {/* <p>END OF USERS LIST</p> */}
-                    </div>
+                    <form onSubmit={this.handleEditFormSubmit}>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Team</th>
+                                    <th>Role</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {this.state.users ? (
+                                    this.state.users.map((contact) => (
+                                        <Fragment>
+                                            {this.state.editContactId === contact._id ? (
+                                                <EditableRow
+                                                    editFormData={this.state.editFormData}
+                                                    handleEditFormChange={this.handleEditFormChange}
+                                                    handleCancelClick={this.handleCancelClick}
+                                                />
+                                            ) : (
+                                                <ReadOnlyRow
+                                                    contact={contact}
+                                                    handleEditClick={this.handleEditClick}
+                                                    handleDeleteClick={this.handleDeleteClick}
+                                                />
+                                            )}
+                                        </Fragment>
+                                    ))
+                                ) : (
+                                    <h2>Users here</h2>
+                                )}
+                                {/* ))} */}
+                            </tbody>
+                        </table>
+                    </form>
                 </div>
 
                 <button class="accordion">Section 2</button>
