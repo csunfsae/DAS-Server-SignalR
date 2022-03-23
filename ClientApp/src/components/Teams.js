@@ -1,15 +1,17 @@
 ﻿import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { nanoid } from "nanoid";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
 
-export class Teams extends Component {
-    static displayName = Teams.name;
+class Teams extends Component {
+    //static displayName = Teams.name;
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         // Don't call this.setState() here!
         this.state = {
+            userRole: this.props.userRole.role,
             users: [],
             addFormData: {
                 firstName: "",
@@ -65,6 +67,7 @@ export class Teams extends Component {
                 console.log("Users were fetched!");
                 this.setState({users: data});
                 console.log(this.state.users);
+                console.log("The USER ROLE STATE fetched from redux inside TEAMS is: " + this.state.userRole);
             });
     }
 
@@ -282,3 +285,11 @@ export class Teams extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userRole: state.userRole
+    }
+}
+
+export default connect(mapStateToProps)(Teams);
