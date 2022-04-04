@@ -19,7 +19,7 @@ namespace DAS_Server_SignalR.Entities.Users
 
             _userCollection = mongoDatabase.GetCollection<User>(
                 csunFsaeDatabaseSettings.Value.UserCollectionName);
-            _userCollection.Indexes.CreateOne(new CreateIndexModel<User>("{ GoogleId: 1 }", new CreateIndexOptions { Unique = true }));  
+            _userCollection.Indexes.CreateOne(new CreateIndexModel<User>("{ GoogleId: 1 }", new CreateIndexOptions { Unique = true }));
             _userCollection.Indexes.CreateOne(new CreateIndexModel<User>("{ Email: 1 }", new CreateIndexOptions { Unique = true }));
         }
 
@@ -36,6 +36,18 @@ namespace DAS_Server_SignalR.Entities.Users
         public async Task CreateUser(User user)
         {
             await _userCollection.InsertOneAsync(user);
-        }  
+        }
+
+        public async Task UpdateUser(User user)
+        {
+            await _userCollection.UpdateOneAsync(u => u.Id == user.Id, Builders<User>.Update.Set(u => u.LastName, user.LastName));
+        }
+
+        public async Task DeleteUser(User user)
+        {
+
+            await _userCollection.DeleteOneAsync(u => u.Email == user.Email);
+        }
+
     }
 }

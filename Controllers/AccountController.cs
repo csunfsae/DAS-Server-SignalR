@@ -3,12 +3,13 @@ using DAS_Server_SignalR.Entities.Users.Enums;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace DAS_Server_SignalR.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous, Route("account")]
+    [AllowAnonymous]
     public class AccountController : ControllerBase
     {
         private readonly UserService _userService;
@@ -100,14 +101,14 @@ namespace DAS_Server_SignalR.Controllers
 
                 user = await _userService.GetUser(payload.Subject, payload.Email);
 
-                if(user is not null)
+                if (user is not null)
                 {
                     throw new Exception("User already exists. Please sign in or contact an administrator.");
                 }
 
                 user = new User()
                 {
-                    GoogleId = payload.Subject,                    
+                    GoogleId = payload.Subject,
                     FirstName = payload.GivenName,
                     LastName = payload.FamilyName,
                     Email = payload.Email
@@ -120,7 +121,7 @@ namespace DAS_Server_SignalR.Controllers
                 catch (Exception)
                 {
                     throw new Exception("Unable to authenticate user");
-                }                
+                }
 
                 if (user is null)
                 {
@@ -142,7 +143,48 @@ namespace DAS_Server_SignalR.Controllers
 
             var users = await _userService.GetUsers();
             return users;
- 
+
+        }
+
+        /*public UserService Get_userService()
+         {
+             return _userService;
+         }*/
+
+        [HttpPost]
+        [Route("update-user")]
+        public async Task<User> UpdateUser([FromBody] User user)
+        {
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+
+            try
+            {
+                await _userService.UpdateUser(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to authenticate user");
+            }
+
+            var updatedUser = await _userService.GetUser(user.GoogleId, user.Email);
+
+            if (updatedUser == null)
+            {
+
+                throw new Exception("user not found");
+            }
+
+            return updatedUser;
+        }
+
+        [HttpPost]
+        [Route("delete-user")]
+        public async Task DeleteUser([FromBody] User user)
+        {
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            await _userService.DeleteUser(user);
         }
     }
 }
