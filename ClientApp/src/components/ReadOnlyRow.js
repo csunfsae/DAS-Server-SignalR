@@ -11,25 +11,36 @@ export default class ReadOnlyRow extends Component {
     }
 
     render() {
-        return (
-            <tr>
-                <td>{this.props.contact.firstName}</td>
-                <td>{this.props.contact.lastName}</td>
-                <td>{this.props.contact.email}</td>
-                <td>{this.props.contact.team}</td>
-                <td>{this.props.contact.role}</td>
-                <td>
-                    <button
-                        type="button"
-                        onClick={(event) => this.props.handleEditClick(event, this.props.contact)}
-                    >
-                        Edit
-                    </button>
-                    <button type="button" onClick={() => this.props.handleDeleteClick(this.props.contact.id)}>
-                        Delete
-                    </button>
-                </td>
-            </tr>
+        return (            
+            this.props.userRole === "Admin" ? (
+                <tr>
+                    <td>{this.props.contact.firstName}</td>
+                    <td>{this.props.contact.lastName}</td>
+                    <td>{this.props.contact.email}</td>
+                    <td>{this.props.contact.team}</td>
+                    <td>{this.props.contact.role}</td>
+                    <td>
+                        <button
+                            type="button"
+                            onClick={(event) => this.props.handleEditClick(event, this.props.contact)}
+                        >
+                            Edit
+                        </button>
+                        <button type="button" onClick={() => this.props.handleDeleteClick(this.props.contact.id)}>
+                            Delete
+                        </button>
+                    </td>
+                </tr>                    
+            ) : (
+                <tr>
+                    <td>{this.props.contact.firstName}</td>
+                    <td>{this.props.contact.lastName}</td>
+                    <td>{this.props.contact.email}</td>
+                    <td>{this.props.contact.team}</td>
+                    <td>{this.props.contact.role}</td>
+                </tr>
+            )
+
         );
     }
 }

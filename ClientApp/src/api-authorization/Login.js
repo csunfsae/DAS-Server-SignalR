@@ -23,6 +23,9 @@ class Login extends Component {
         switch (result.status) {
             case AuthenticationResultStatus.Success:
                 await this.navigateToReturnUrl();
+                //NEED TO FIGURE OUT HOW TO GET THE USER RETURN OBJECT SO WE CAN STORE IT INTO REDUX
+                //this.props.setRole("Admin");
+                window.sessionStorage.setItem("userRole", "Admin");
                 console.log("The USER ROLE STATE fetched from redux is: " + this.props.userRole.role);
                 break;
             case AuthenticationResultStatus.Fail:

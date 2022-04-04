@@ -161,7 +161,7 @@ code {
         border: 1px solid #ffffff;
         text-align: left;
         padding: 8px;
-        font-size: 32px;
+        /*font-size: 32px;*/
     }
 
     th {
@@ -183,5 +183,5 @@ code {
     }
 
     form * {
-        font-size: 28px;
+        font-size: 18px;
     }

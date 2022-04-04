@@ -1,6 +1,7 @@
 ﻿import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { nanoid } from "nanoid";
+import HeaderRow from "./HeaderRow";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
 
@@ -11,8 +12,13 @@ class Teams extends Component {
         super(props);
         // Don't call this.setState() here!
         this.state = {
-            userRole: this.props.userRole.role,
-            users: [],
+            //userRole: this.props.userRole.role,
+            userRole: window.sessionStorage.getItem("userRole"),
+            unassignedUsers: [],
+            suspensionTeam: [],
+            chasisTeam: [],
+            engineTeam: [],
+            controlsTeam: [],
             addFormData: {
                 firstName: "",
                 lastName: "",
@@ -65,8 +71,18 @@ class Teams extends Component {
             })
             .then((data) => {
                 console.log("Users were fetched!");
-                this.setState({users: data});
-                console.log(this.state.users);
+                //this.setState({users: data});
+
+                const controls = data.filter(u => u.Role === 'Controls');
+
+                this.setState({ unassignedUsers: data.filter(u => u.role === 'Unassigned') });
+                this.setState({ suspensionTeam: data.filter(u => u.role === 'Suspension') });
+                this.setState({ chasisTeam: data.filter(u => u.role === 'Chasis') });
+                this.setState({ engineTeam: data.filter(u => u.role === 'Engine') });
+                this.setState({ controlsTeam: data.filter(u => u.Role === 'Controls') });
+
+                console.log(data);
+                console.log(this.state.controlsTeam);
                 console.log("The USER ROLE STATE fetched from redux inside TEAMS is: " + this.state.userRole);
             });
     }
@@ -225,30 +241,25 @@ class Teams extends Component {
                     <form onSubmit={this.handleEditFormSubmit}>
                         <table>
                             <thead>
-                                <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Team</th>
-                                    <th>Role</th>
-                                    <th>Actions</th>
-                                </tr>
+                                <HeaderRow userRole={this.state.userRole} />
                             </thead>
                             <tbody>
-                                {this.state.users ? (
-                                    this.state.users.map((contact) => (
+                                {this.state.unassignedUsers ? (
+                                    this.state.unassignedUsers.map((contact) => (
                                         <Fragment>
                                             {this.state.editContactId === contact._id ? (
                                                 <EditableRow
                                                     editFormData={this.state.editFormData}
                                                     handleEditFormChange={this.handleEditFormChange}
                                                     handleCancelClick={this.handleCancelClick}
+                                                    userRole={this.state.userRole}
                                                 />
                                             ) : (
                                                 <ReadOnlyRow
                                                     contact={contact}
                                                     handleEditClick={this.handleEditClick}
                                                     handleDeleteClick={this.handleDeleteClick}
+                                                    userRole={this.state.userRole}
                                                 />
                                             )}
                                         </Fragment>
