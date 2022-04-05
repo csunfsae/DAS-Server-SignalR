@@ -49,7 +49,7 @@ namespace DAS_Server_SignalR.Controllers
 
         [HttpGet]
         [Route("get-registered-user")]
-        public async Task<IActionResult> GetRegisteredUser(string tokenId)
+        public async Task<User> GetRegisteredUser(string tokenId)
         {
             User? user;
             try
@@ -70,10 +70,10 @@ namespace DAS_Server_SignalR.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Unable to authenticate user");
+                return null;
             }
 
-            return Ok();
+            return user;
         }
 
         [HttpPost]
@@ -133,6 +133,41 @@ namespace DAS_Server_SignalR.Controllers
             }
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("update-user")]
+        public async Task<User> UpdateUser([FromBody] User user)
+        {
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            try
+            {
+                await _userService.UpdateUser(user);
+            }
+            catch (Exception)
+            {
+                throw new Exception("Unable to authenticate user");
+            }
+
+            var updatedUser = await _userService.GetUser(user.GoogleId, user.Email);
+
+            if (updatedUser == null)
+            {
+
+                throw new Exception("user not found");
+            }
+
+            return updatedUser;
+        }
+
+        [HttpPost]
+        [Route("delete-user")]
+        public async Task DeleteUser([FromBody] User user)
+        {
+            if (user == null) throw new ArgumentNullException(nameof(user));
+
+            await _userService.DeleteUser(user);
         }
     }
 }
