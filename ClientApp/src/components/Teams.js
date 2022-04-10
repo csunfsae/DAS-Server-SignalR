@@ -1,12 +1,16 @@
 ﻿import React, { Component } from 'react';
+import authService from '../api-authorization/AuthorizeService';
 
 export class Teams extends Component {
     static displayName = Teams.name;
 
-    constructor() {
-        super();
-        // Don't call this.setState() here!
-        this.state = {};
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isAuthenticated: false,
+            user: null
+        };
         this.clickAccordion = this.clickAccordion.bind(this);
     }
 
@@ -29,8 +33,17 @@ export class Teams extends Component {
     }
 
     componentDidMount() {
+        this.populateState();
         console.log("Mounted successfully!")
         this.clickAccordion();
+    }
+
+    async populateState() {
+        const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+        this.setState({
+            isAuthenticated,
+            user
+        });
     }
 
     componentWillMount() {
@@ -39,9 +52,23 @@ export class Teams extends Component {
     }
 
     render() {
-        console.log("Testing when this mounts...")
+        const { isAuthenticated, user } = this.state;
+
+        if (!isAuthenticated) {
+            return this.anonymousView();
+        } else {
+            return this.authenticatedView(user);
+        }
+
+    } authenticatedView(user) {
         return (
-            <div className="userWrap">
+            <>
+                <p>{user.firstName}</p>
+                <p>{user.lastName}</p>
+                <p>{user.role}</p>
+                <p>{user.team}</p>
+                <p>{user.status}</p>
+                <div className="userWrap">
 
                 <button className="accordion">Section 1</button>
                 <div class="panel">
@@ -72,7 +99,13 @@ export class Teams extends Component {
                         aliquip ex ea commodo consequat.
                     </p>
                 </div>
-            </div>
+            </div></>
         );
+    }
+
+    anonymousView() {
+        return (
+            <h1>You are not authorized to view this page</h1>
+        )
     }
 }
