@@ -3,6 +3,7 @@ using DAS_Server_SignalR.Entities.Users.Enums;
 using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace DAS_Server_SignalR.Controllers
 {
@@ -20,7 +21,7 @@ namespace DAS_Server_SignalR.Controllers
 
         [HttpGet]
         [Route("google-login")]
-        public async Task<IActionResult> GoogleLogin(string tokenId)
+        public async Task<User> GoogleLogin(string tokenId)
         {
             User? user;
             try
@@ -41,10 +42,10 @@ namespace DAS_Server_SignalR.Controllers
             }
             catch (Exception)
             {
-                return BadRequest("Unable to authenticate user");
+                throw new Exception("Unable to authenticate user");
             }
 
-            return Ok();
+            return user;
         }
 
         [HttpGet]
@@ -70,7 +71,7 @@ namespace DAS_Server_SignalR.Controllers
             }
             catch (Exception)
             {
-                return null;
+                throw new Exception();
             }
 
             return user;

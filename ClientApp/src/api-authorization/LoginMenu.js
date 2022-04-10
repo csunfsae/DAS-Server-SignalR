@@ -30,7 +30,7 @@ export class LoginMenu extends Component {
         if (!isAuthenticated) {
             const registerPath = `/register`;
             return this.anonymousView(registerPath);
-        } else {
+        } else {            
             const livePath = '/live-race'
             const historyPath = '/history'
             const teamsPath = '/teams'

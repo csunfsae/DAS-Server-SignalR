@@ -6,7 +6,8 @@ export class AuthorizeService {
     _isRegistered = false;
 
     async isAuthenticated() {
-        return await this.getUser();
+        const user = await this.getUser();
+        return !!user;
     }
 
     async isRegistered() {
@@ -14,7 +15,13 @@ export class AuthorizeService {
     }
 
     async getUser() {
+
         try {
+
+            if (this._user) {
+                return this._user;
+            }
+
             const tokenId = await this.getAccessToken();
 
             const result = await fetch(`/api/account/google-login?tokenId=${encodeURIComponent(tokenId)}`, {
@@ -27,12 +34,13 @@ export class AuthorizeService {
 
             if (result.status === 200) {
                 this._isAuthenticated = true;
+                this._user = result.json();
             }
         } catch (error) {
             this._isAuthenticated = false;
         }
 
-        return this._isAuthenticated
+        return this._user;
     }
 
     async getRegisteredUser() {
