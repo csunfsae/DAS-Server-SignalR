@@ -7,11 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAS_Server_SignalR.Entities.Users
 {
+    [BsonIgnoreExtraElements]
     public class User
-    {
-        [BsonId]
-        public Guid? Id { get; private set; }
-
+    {        
         [Required]
         public string GoogleId { get; set; } = default!;
 
@@ -45,7 +43,6 @@ namespace DAS_Server_SignalR.Entities.Users
 
         public User()
         {            
-            Id = Guid.NewGuid();            
             Role = Role.Basic;
             Team = Team.Unassigned;
             Status = Status.Pending;
