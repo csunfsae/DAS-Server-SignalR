@@ -154,7 +154,6 @@ namespace DAS_Server_SignalR.Controllers
 
             if (updatedUser == null)
             {
-
                 throw new Exception("user not found");
             }
 

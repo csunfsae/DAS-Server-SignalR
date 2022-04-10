@@ -1,5 +1,4 @@
 ﻿using DAS_Server_SignalR.DatabaseSettings;
-using DAS_Server_SignalR.Entities.Users.Enums;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -52,6 +51,6 @@ namespace DAS_Server_SignalR.Entities.Users
         public async Task DeleteUser(User user)
         {
             await _userCollection.DeleteOneAsync(u => u.Email == user.Email);
-        }
+        }   
     }
 }

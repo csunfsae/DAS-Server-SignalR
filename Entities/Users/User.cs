@@ -9,7 +9,7 @@ namespace DAS_Server_SignalR.Entities.Users
 {
     [BsonIgnoreExtraElements]
     public class User
-    {
+    {        
         [Required]
         public string GoogleId { get; set; } = default!;
 
@@ -33,6 +33,7 @@ namespace DAS_Server_SignalR.Entities.Users
         public Team Team { get; set; }
 
         [Required]
+        [JsonConverter(typeof(StringEnumConverter))]
         [BsonRepresentation(BsonType.String)]
         public Status Status { get; set; }
 
