@@ -41,6 +41,7 @@ export class LiveRace extends Component {
 
     componentDidMount() {
         this.populateState();
+        this.display();
     }
 
     async populateState() {
