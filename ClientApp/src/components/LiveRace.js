@@ -1,18 +1,29 @@
 ﻿import React, { Component } from 'react';
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr'
+import authService from '../api-authorization/AuthorizeService';
 
-export class LiveRace extends Component {
-    static displayName = LiveRace.name;
-
-
+export class LiveRace extends Component {   
     constructor(props) {
         super(props);
-        this.state = { speed: "0" };
+
+        this.state = {
+            speed: "0",
+            isAuthenticated: false
+        };
     }
 
     componentDidMount() {
         this.display();
     }
+
+    async populateState() {
+        const [isAuthenticated] = await Promise.all([authService.isAuthenticated()])
+        this.setState({
+            isAuthenticated
+        });
+    } 
+
+    static displayName = LiveRace.name;
 
     async display() {
         var connection = new HubConnectionBuilder();
@@ -40,6 +51,15 @@ export class LiveRace extends Component {
     }
 
     render() {
+        const { isAuthenticated } = this.state;
+        if (!isAuthenticated) {            
+            return this.anonymousView();
+        } else {            
+            return this.authenticatedView();
+        }
+    }
+
+    authenticatedView() {
         return (
             <div>
                 <h1>Live Race</h1>
@@ -49,5 +69,11 @@ export class LiveRace extends Component {
                 <p aria-live="polite">Speedometer: <strong>{this.state.speed} mph</strong></p>
             </div>
         );
+    }
+
+    anonymousView() {
+        return (
+            <h1 className="not-authorized">You are not authorized to view this page</h1>
+        )
     }
 }

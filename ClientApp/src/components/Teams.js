@@ -105,7 +105,7 @@ export class Teams extends Component {
 
     anonymousView() {
         return (
-            <h1>You are not authorized to view this page</h1>
+            <h1 className="not-authorized">You are not authorized to view this page</h1>
         )
     }
 }

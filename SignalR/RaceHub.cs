@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using DAS_Server_SignalR.SignalR.Models;
+using Microsoft.AspNetCore.SignalR;
+using System.Text.Json;
 
 namespace DAS_Server_SignalR.SignalR
 {
@@ -6,7 +8,12 @@ namespace DAS_Server_SignalR.SignalR
     {
         public async Task Speedometer(string message)
         {
-            await Clients.All.SendAsync("Speedometer", message);
+            var speedometer = JsonSerializer.Deserialize<Speedometer>(message);
+
+            if(speedometer is not null)
+            {
+                await Clients.All.SendAsync("Speedometer", speedometer.Speed);
+            }
         }
     }
 }
