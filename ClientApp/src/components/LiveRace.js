@@ -7,21 +7,10 @@ export class LiveRace extends Component {
         super(props);
 
         this.state = {
-            speed: "0",
-            isAuthenticated: false
+            isAuthenticated: false,
+            speed: "0"
         };
     }
-
-    componentDidMount() {
-        this.display();
-    }
-
-    async populateState() {
-        const [isAuthenticated] = await Promise.all([authService.isAuthenticated()])
-        this.setState({
-            isAuthenticated
-        });
-    } 
 
     static displayName = LiveRace.name;
 
@@ -48,6 +37,17 @@ export class LiveRace extends Component {
         });
 
         await connection.start();
+    }
+
+    componentDidMount() {
+        this.populateState();
+    }
+
+    async populateState() {
+        const [isAuthenticated] = await Promise.all([authService.isAuthenticated()])
+        this.setState({
+            isAuthenticated
+        });
     }
 
     render() {
