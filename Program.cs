@@ -2,6 +2,7 @@ using DAS_Server_SignalR.DatabaseSettings;
 using DAS_Server_SignalR.Entities.Users;
 using DAS_Server_SignalR.SignalR;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ services.AddControllers()
 .AddJsonOptions(o =>
 {
     o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    o.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
 });
 services.AddSignalR();
 

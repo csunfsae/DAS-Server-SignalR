@@ -89,62 +89,67 @@ code {
     }
 
 
-    /* PASTE PREV CSS HERE */
+/* PASTE PREV CSS HERE */
 
-    .accordion {
-        background-color: #cc2b2b;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        padding: 18px;
-        width: 90%;
-        margin: 20px auto 0;
-        border: none;
-        text-align: left;
-        outline: none;
-        font-size: 18px;
-        transition: 0.4s;
-        display: block;
-    }
+.accordion {
+    background-color: #cc2b2b;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 90%;
+    margin: 20px auto 0;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 18px;
+    transition: 0.4s;
+    display: block;
+}
 
-    .active,
-    .accordion:hover {
-        background-color: #800e0e;
-    }
+.active,
+.accordion:hover {
+    background-color: #800e0e;
+}
 
-    .panel {
-        /* padding: 0 18px; */
-        display: none;
-        background-color: white;
-        overflow: hidden;
-        width: 90%;
-        margin: 0 auto;
-    }
+.panel {
+    /* padding: 0 18px; */
+    display: none;
+    background-color: white;
+    overflow: hidden;
+    width: 90%;
+    margin: 0 auto;
+}
 
-    .userWrap h2 {
-        text-align: center;
-        margin: 30px auto;
-    }
+.userWrap h2 {
+    text-align: center;
+    margin: 30px auto;
+}
 
-    .list-users span {
-        display: inline-block;
-        padding: 10px;
-        margin: 0 60px;
-        width: 200px;
-        /* max-width: 50px; */
-    }
+.list-users span {
+    display: inline-block;
+    padding: 10px;
+    margin: 0 60px;
+    width: 200px;
+    /* max-width: 50px; */
+}
 
-    .user {
-        /* width: 90%; */
-        margin: 0 auto;
-        border-bottom: 3px solid #cc2b2b;
-        border-left: 3px solid #cc2b2b;
-        border-right: 3px solid #cc2b2b;
-    }
+.user {
+    /* width: 90%; */
+    margin: 0 auto;
+    border-bottom: 3px solid #cc2b2b;
+    border-left: 3px solid #cc2b2b;
+    border-right: 3px solid #cc2b2b;
+}
 
-    .user-subheader {
-        background-color: #202020;
-        color: white;
-        /* width: 90%; */
-        margin: 0 auto;
-    }
+.user-subheader {
+    background-color: #202020;
+    color: white;
+    /* width: 90%; */
+    margin: 0 auto;
+}
+
+.not-authorized{
+    text-align:center;
+    margin: 100px auto;
+}
