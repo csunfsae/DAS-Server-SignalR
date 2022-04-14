@@ -3,6 +3,7 @@
     public enum Status
     {
         Pending,
-        Active
+        Active,
+        Deleted
     }
 }

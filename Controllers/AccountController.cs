@@ -77,6 +77,20 @@ namespace DAS_Server_SignalR.Controllers
             return user;
         }
 
+        [HttpGet]
+        [Route("get-users")]
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            try
+            {
+                return await _userService.GetUsers();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to get users", ex);
+            }
+        }
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> RegisterUser(string tokenId)

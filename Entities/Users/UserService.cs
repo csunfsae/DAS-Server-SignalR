@@ -1,4 +1,5 @@
 ﻿using DAS_Server_SignalR.DatabaseSettings;
+using DAS_Server_SignalR.Entities.Users.Enums;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -30,6 +31,13 @@ namespace DAS_Server_SignalR.Entities.Users
         public async Task<User?> GetUser(string googleId, string email)
         {
             return await _userCollection.Find(x => x.GoogleId == googleId && x.Email == email).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            var results = await _userCollection.FindAsync(x => x.Status != Status.Deleted);
+
+            return results.ToEnumerable();
         }
 
         public async Task CreateUser(User user)
