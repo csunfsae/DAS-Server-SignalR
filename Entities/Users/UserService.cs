@@ -37,7 +37,7 @@ namespace DAS_Server_SignalR.Entities.Users
             await _userCollection.InsertOneAsync(user);
         }
 
-        public async Task<string?> UpdateUser(UserUpdate user)
+        public async Task UpdateUser(UserUpdate user)
         {
             var filter = Builders<User>.Filter.Eq(s => s.GoogleId, user.GoogleId);
 
@@ -47,9 +47,7 @@ namespace DAS_Server_SignalR.Entities.Users
                 .Set(x => x.Status, user.Status)
                 .Set(x => x.UpdatedDate, DateTime.Now);
 
-            var result = await _userCollection.UpdateOneAsync(filter, update);
-
-            return result?.UpsertedId.ToString();
+            await _userCollection.UpdateOneAsync(filter, update);
         }
 
         public async Task DeleteUser(User user)
