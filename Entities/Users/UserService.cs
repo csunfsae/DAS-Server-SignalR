@@ -22,6 +22,11 @@ namespace DAS_Server_SignalR.Entities.Users
             _userCollection.Indexes.CreateOne(new CreateIndexModel<User>("{ Email: 1 }", new CreateIndexOptions { Unique = true }));
         }
 
+        public async Task<User?> GetUser(string googleId)
+        {
+            return await _userCollection.Find(x => x.GoogleId == googleId).FirstOrDefaultAsync();
+        }
+
         public async Task<User?> GetUser(string googleId, string email)
         {
             return await _userCollection.Find(x => x.GoogleId == googleId && x.Email == email).FirstOrDefaultAsync();
@@ -32,20 +37,19 @@ namespace DAS_Server_SignalR.Entities.Users
             await _userCollection.InsertOneAsync(user);
         }
 
-        public async Task UpdateUser(User user)
+        public async Task<string?> UpdateUser(UserUpdate user)
         {
             var filter = Builders<User>.Filter.Eq(s => s.GoogleId, user.GoogleId);
 
             var update = Builders<User>.Update
-                .Set(x => x.FirstName, user.FirstName)
-                .Set(x => x.LastName, user.LastName)
-                .Set(x => x.Email, user.Email)
                 .Set(x => x.Role, user.Role)
                 .Set(x => x.Team, user.Team)
                 .Set(x => x.Status, user.Status)
                 .Set(x => x.UpdatedDate, DateTime.Now);
 
             var result = await _userCollection.UpdateOneAsync(filter, update);
+
+            return result?.UpsertedId.ToString();
         }
 
         public async Task DeleteUser(User user)
