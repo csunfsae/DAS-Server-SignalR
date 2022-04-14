@@ -1,4 +1,5 @@
 ﻿using DAS_Server_SignalR.DatabaseSettings;
+using DAS_Server_SignalR.Entities.Users.Enums;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -22,9 +23,21 @@ namespace DAS_Server_SignalR.Entities.Users
             _userCollection.Indexes.CreateOne(new CreateIndexModel<User>("{ Email: 1 }", new CreateIndexOptions { Unique = true }));
         }
 
+        public async Task<User?> GetUser(string googleId)
+        {
+            return await _userCollection.Find(x => x.GoogleId == googleId).FirstOrDefaultAsync();
+        }
+
         public async Task<User?> GetUser(string googleId, string email)
         {
             return await _userCollection.Find(x => x.GoogleId == googleId && x.Email == email).FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            var results = await _userCollection.FindAsync(x => x.Status != Status.Deleted);
+
+            return results.ToEnumerable();
         }
 
         public async Task CreateUser(User user)
@@ -32,20 +45,17 @@ namespace DAS_Server_SignalR.Entities.Users
             await _userCollection.InsertOneAsync(user);
         }
 
-        public async Task UpdateUser(User user)
+        public async Task UpdateUser(UserUpdate user)
         {
             var filter = Builders<User>.Filter.Eq(s => s.GoogleId, user.GoogleId);
 
             var update = Builders<User>.Update
-                .Set(x => x.FirstName, user.FirstName)
-                .Set(x => x.LastName, user.LastName)
-                .Set(x => x.Email, user.Email)
                 .Set(x => x.Role, user.Role)
                 .Set(x => x.Team, user.Team)
                 .Set(x => x.Status, user.Status)
                 .Set(x => x.UpdatedDate, DateTime.Now);
 
-            var result = await _userCollection.UpdateOneAsync(filter, update);
+            await _userCollection.UpdateOneAsync(filter, update);
         }
 
         public async Task DeleteUser(User user)

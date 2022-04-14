@@ -77,6 +77,20 @@ namespace DAS_Server_SignalR.Controllers
             return user;
         }
 
+        [HttpGet]
+        [Route("get-users")]
+        public async Task<IEnumerable<User>> GetUsers()
+        {
+            try
+            {
+                return await _userService.GetUsers();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to get users", ex);
+            }
+        }
+
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> RegisterUser(string tokenId)
@@ -138,7 +152,7 @@ namespace DAS_Server_SignalR.Controllers
 
         [HttpPost]
         [Route("update-user")]
-        public async Task<User> UpdateUser([FromBody] User user)
+        public async Task<User> UpdateUser([FromBody] UserUpdate user)
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
@@ -146,12 +160,12 @@ namespace DAS_Server_SignalR.Controllers
             {
                 await _userService.UpdateUser(user);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw new Exception("Unable to authenticate user");
+                throw new Exception("Unable to authenticate user", ex);
             }
 
-            var updatedUser = await _userService.GetUser(user.GoogleId, user.Email);
+            var updatedUser = await _userService.GetUser(user.GoogleId);
 
             if (updatedUser == null)
             {
