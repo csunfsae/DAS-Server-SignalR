@@ -110,7 +110,8 @@ export class Teams extends Component {
             },
         })
             .then((res) => {
-                console.log("deleted user")
+                console.log("deleted user");
+                this.fetchUsers();
             });
     }
 
