@@ -181,7 +181,16 @@ namespace DAS_Server_SignalR.Controllers
         {
             if (user == null) throw new ArgumentNullException(nameof(user));
 
-            await _userService.DeleteUser(user);
+            //await _userService.DeleteUser(user);
+
+            try
+            {
+                await _userService.DeleteUser(user);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to delete user", ex);
+            }
         }
     }
 }

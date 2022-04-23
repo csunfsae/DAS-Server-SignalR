@@ -8,7 +8,9 @@ const context =  [
     "/api/account/google-login",
     "/api/account/register",
     "/api/account/get-registered-user",
-    "/api/account/get-users"
+    "/api/account/get-users",
+    "/api/account/update-user",
+    "/api/account/delete-user"
 ];
 
 module.exports = function(app) {
