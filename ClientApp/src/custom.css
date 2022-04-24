@@ -185,3 +185,24 @@ form {
     form * {
         font-size: 18px;
     }
+
+.notification {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 50%;
+    margin: 0 auto;
+    color: black;
+    padding: 15px;
+}
+
+.notification p {
+    color: red;
+    margin: 0 auto;
+    padding: 5px;
+    width: 40%;
+    border: 5px solid red;
+    border-radius: 5px;
+    text-align: center;
+}

@@ -2,6 +2,7 @@
 import { GoogleLogin } from 'react-google-login';
 import authService from './AuthorizeService';
 import { AuthenticationResultStatus } from './AuthorizeService';
+import Notifications from '../components/Notifications';
 
 export default class Register extends Component {
     constructor(props) {
@@ -9,6 +10,7 @@ export default class Register extends Component {
 
         this.state = {
             message: undefined
+            //visibility: false,
         };
     }
 
@@ -19,7 +21,7 @@ export default class Register extends Component {
                 await this.navigateToReturnUrl();
                 break;
             case AuthenticationResultStatus.Fail:
-                this.setState({ message: result.message });
+                this.setState({ message: result.message, visibility: true });
                 break;
             default:
                 throw new Error(`Invalid status result ${result.status}.`);
@@ -38,6 +40,7 @@ export default class Register extends Component {
         }
         return (
             <div id="register-button">
+                <Notifications message={message} visibility={this.state.visibility} type="register" />
                 <GoogleLogin
                     clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                     buttonText="Register"
