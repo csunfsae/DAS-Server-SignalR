@@ -36,6 +36,7 @@ services.Configure<CsunFsaeDatabaseSettings>(
     configuration.GetSection("CsunDasDatabase"));
 
 services.AddSingleton<UserService>();
+services.AddSingleton<RaceHub>();
 
 services.AddCors(options =>
 {
