@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace DAS_Server_SignalR.SignalR
 {
     public class RaceHub : Hub
-    {
+    {   
         public async Task Speedometer(string message)
         {
             var speedometer = JsonSerializer.Deserialize<Speedometer>(message);
