@@ -14,20 +14,20 @@ export default class ReadOnlyRow extends Component {
         return (
             this.props.userRole === "Admin" ? (
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Team</th>
-                    <th>Role</th>
-                    <th>Actions</th>
+                    <th id="cell">First Name</th>
+                    <th id="cell">Last Name</th>
+                    <th id="cell">Email</th>
+                    <th id="cell">Team</th>
+                    <th id="cell">Role</th>
+                    <th id="cell">Actions</th>
                 </tr>
             ) : (
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
-                    <th>Team</th>
-                    <th>Role</th>
+                    <th id="cell">First Name</th>
+                    <th id="cell">Last Name</th>
+                    <th id="cell">Email</th>
+                    <th id="cell">Team</th>
+                    <th id="cell">Role</th>
                 </tr>
             )
 

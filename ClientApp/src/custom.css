@@ -7,6 +7,11 @@ code {
     color: #E01A76;
 }
 
+.logo {
+    width: 215px;
+    margin-top: -15px;
+}
+
 .btn-primary {
     color: #fff;
     background-color: #1b6ec2;
@@ -14,9 +19,15 @@ code {
 }
 
 .overlay {
-    display: flexbox;
-    margin: 5em;
-    text-align: center;
+    margin-top: 80px;
+}
+
+.home-buttons {
+    margin-top: 30px;
+}
+
+.home-title {
+    margin-bottom: 75px;
 }
 
 #carImg {
@@ -31,9 +42,9 @@ code {
     align-items: center;
 }
 
-.overlay p {
+/*.overlay p {
     color: white;
-}
+}*/
 
 #login-button {
     float: right;
@@ -44,10 +55,11 @@ code {
     float: right;
     margin-top: 10px;
     margin-left: 100px;
+    color: white;
 }
 
 #register-button {
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 .nav-links {
@@ -65,7 +77,7 @@ code {
 
 .register-page {
     position: center;
-    background-color: #2c2c2c;
+    /*background-color: #2c2c2c;*/
     text-align: center;
     margin: 0;
     width: 100%;
@@ -76,16 +88,19 @@ code {
         color: rgb(246, 33, 33);
         font-size: 60px;
         margin-top: 20px;
-        margin-bottom: 50px;
+        /*margin-bottom: 50px;*/
+        margin: 75px auto 50px;
         padding: 0;
     }
 
     .register-page p {
-        color: white;
+        color: black;
+        margin: 0;
     }
 
     .register-page h2, h4 {
-        color: white;
+        color: black;
+        margin: 0 auto 10px;
     }
 
 
@@ -151,7 +166,7 @@ code {
 
 /* Table */
 
-table {
+/*table {
     border-collapse: collapse;
     width: 100%;
 }
@@ -160,9 +175,9 @@ th,
 td {
     border: 1px solid #ffffff;
     text-align: left;
-    padding: 8px;
+    padding: 8px;*/
     /*font-size: 32px;*/
-}
+/*}
 
 th {
     background-color: rgb(117, 201, 250);
@@ -186,6 +201,11 @@ form {
         font-size: 18px;
     }
 
+
+li a {
+    color: white;
+}*/
+
 .notification {
     position: fixed;
     top: 0;
@@ -197,12 +217,29 @@ form {
     padding: 15px;
 }
 
-.notification p {
-    color: red;
-    margin: 0 auto;
-    padding: 5px;
-    width: 40%;
-    border: 5px solid red;
-    border-radius: 5px;
-    text-align: center;
+    .notification p {
+        color: red;
+        margin: 0 auto;
+        padding: 5px;
+        width: 40%;
+        border: 5px solid red;
+        border-radius: 5px;
+        text-align: center;
+    }
+
+thead {
+    background-color: #212529;
+}
+
+thead th {
+    color: white;
+    font-weight: bold;
+}
+
+th, td {
+    padding: 17px;
+}
+
+#cell {
+    padding: 17px;
 }

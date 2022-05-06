@@ -276,10 +276,12 @@ export class Teams extends Component {
         return (
             <div className="userWrap">
 
+                <h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>Teams Page</h2>
+
                 <button class="accordion">Pending</button>
                 <div class="panel">
                     <form onSubmit={this.handleEditFormSubmit}>
-                        <table>
+                        <table class="table">
                             <thead>
                                 <HeaderRow userRole={this.state.userRole} />
                             </thead>
@@ -317,7 +319,7 @@ export class Teams extends Component {
                 <button class="accordion">Suspension</button>
                 <div class="panel">
                     <form onSubmit={this.handleEditFormSubmit}>
-                        <table>
+                        <table class="table">
                             <thead>
                                 <HeaderRow userRole={this.state.userRole} />
                             </thead>
@@ -355,7 +357,7 @@ export class Teams extends Component {
                 <button class="accordion">Chasis</button>
                 <div class="panel">
                     <form onSubmit={this.handleEditFormSubmit}>
-                        <table>
+                        <table class="table">
                             <thead>
                                 <HeaderRow userRole={this.state.userRole} />
                             </thead>
@@ -393,7 +395,7 @@ export class Teams extends Component {
                 <button class="accordion">Engine</button>
                 <div class="panel">
                     <form onSubmit={this.handleEditFormSubmit}>
-                        <table>
+                        <table class="table">
                             <thead>
                                 <HeaderRow userRole={this.state.userRole} />
                             </thead>
@@ -431,7 +433,7 @@ export class Teams extends Component {
                 <button class="accordion">Controls</button>
                 <div class="panel">
                     <form onSubmit={this.handleEditFormSubmit}>
-                        <table>
+                        <table class="table">
                             <thead>
                                 <HeaderRow userRole={this.state.userRole} />
                             </thead>

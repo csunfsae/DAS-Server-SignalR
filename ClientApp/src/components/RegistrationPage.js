@@ -35,9 +35,9 @@ export class RegistrationPage extends Component {
     registrationView() {
         return (
             <div className="register-page" >
-                <a href="/">
+                {/*<a href="/">
                     <img className="logo-img" src={logo} atl="CSUN LOGO" />
-                </a>
+                </a>*/}
                 <h1>Join us!</h1>   
                 <h2>Register Procedure</h2>
                 <p>You must register with a CSUN email address.</p>
@@ -50,15 +50,15 @@ export class RegistrationPage extends Component {
     registeredView() {  
         return (
             <div className="register-page" >
-                <a href="/">
+                {/*<a href="/">
                     <img className="logo-img" src={logo} atl="CSUN LOGO" />
-                </a>
+                </a>*/}
                 <div>
                     <h1>Success!</h1>
-                    <br></br>
-                    <h2>You have successfully registered for CSUN Matador Motorsports</h2>
-                    <br></br><br></br>
-                    <h4>Your request is currently being reviewed. Once you are approved, <br></br>you will receive an email indicating you have been granted access.</h4>
+                    {/*<br></br>*/}
+                    <h2>You have successfully registered </h2> 
+                    {/*<br></br><br></br>*/}
+                    <p>Your request is currently being reviewed. Once you are approved, you will receive an email indicating <br></br> you have been granted access.</p>
                 </div>
             </div>
         );

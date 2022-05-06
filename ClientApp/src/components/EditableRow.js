@@ -13,10 +13,10 @@ export default class EditableRow extends Component {
     render() {
         return (
             <tr>
-                <td>{this.props.contact.firstName}</td>
-                <td>{this.props.contact.lastName}</td>
-                <td>{this.props.contact.email}</td>
-                <td>
+                <td id="cell">{this.props.contact.firstName}</td>
+                <td id="cell">{this.props.contact.lastName}</td>
+                <td id="cell">{this.props.contact.email}</td>
+                <td id="cell">
                     <select name="team" value={this.props.editFormData.team} onChange={this.props.handleEditFormChange}>
                         <option value="Unassigned">Unassigned</option>
                         <option value="Suspension">Suspension</option>
@@ -25,16 +25,24 @@ export default class EditableRow extends Component {
                         <option value="Controls">Controls</option>
                     </select>
                 </td>
-                <td>
+                <td id="cell">
                     <select name="role" value={this.props.editFormData.role} onChange={this.props.handleEditFormChange}>
                         <option value="Basic">Basic</option>
                         <option value="Lead">Lead</option>
                         <option value="Admin">Admin</option>
                     </select>
                 </td>
-                <td>
-                    <button type="submit">Save</button>
-                    <button type="button" onClick={this.props.handleCancelClick}>
+                <td id="cell">
+                    <button
+                        type="submit"
+                        class="btn btn-success btn-sm"
+                        style={{ width: '80px' }}>
+                        Save
+                    </button>
+                    <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        style={{ width: '80px', margin: '0 5px' }} onClick={this.props.handleCancelClick}>
                         Cancel
                     </button>
                 </td>

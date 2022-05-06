@@ -45,13 +45,13 @@ export class LoginMenu extends Component {
                     <Logout></Logout>
                 </NavItem>
                 <NavItem className="nav-links">
-                    <NavLink tag={Link} className="text-dark" to={livePath}>Live Race</NavLink>
+                    <NavLink tag={Link} className="text-light" to={livePath}>Live Race</NavLink>
                 </NavItem>
                 <NavItem className="nav-links">
-                    <NavLink tag={Link} className="text-dark" to={historyPath}>History</NavLink>
+                    <NavLink tag={Link} className="text-light" to={historyPath}>History</NavLink>
                 </NavItem>
                 <NavItem className="nav-links">
-                    <NavLink tag={Link} className="text-dark" to={teamsPath}>Teams</NavLink>
+                    <NavLink tag={Link} className="text-light" to={teamsPath}>Teams</NavLink>
                 </NavItem>
             </Fragment>);
     }
