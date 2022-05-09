@@ -14,13 +14,16 @@ export class Home extends Component {
                         <hr style={{width: '50px'}}></hr>
                         <p class="text-dark" style={{ fontSize: '24px' }}>Check data from one of our vehicles in real time.</p>
                         <div class="home-buttons">
-                            <button
-                                class="btn btn-dark btn-lg"
-                                style={{ width: '150px', margin: '0 20px 0 0' }}>Get Started</button>
-                            <button
-                                class="btn btn-lg"
-                                style={{ width: '150px', margin: '0 20px 0 0' }}
-                                >Watch Video</button>
+                            <a href="https://www.ecs.csun.edu/sae/about.html" target="_blank">
+                                <button class="btn btn-dark btn-lg" style={{ width: '150px', margin: '0 20px 0 0' }}>
+                                    About us
+                                </button>
+                            </a>
+                            <a href="https://youtu.be/ni9mR3WHx6U" target="_blank">
+                                <button class="btn btn-lg" style={{ width: '150px', margin: '0 20px 0 0' }}>
+                                    Watch Video
+                                </button>
+                            </a>
                         </div>
 
                     </div>
